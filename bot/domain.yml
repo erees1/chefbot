@@ -1,0 +1,77 @@
+intents:
+  - request_recipe:
+      use_entities: []
+  - greet
+  - goodbye
+  - affirm
+  - deny
+  - bot_challenge
+  - thankyou
+  - inform
+
+actions:
+  - utter_greet
+  - utter_goodbye
+  - utter_iamabot
+  - utter_submit
+  - utter_sorry
+  - utter_nomatches
+  - action_retrieve_user
+  - utter_ingredients_required
+
+slots:
+  main:
+    type: unfeaturized
+    auto_fill: False
+  duration:
+    type: unfeaturized
+    auto_fill: False
+  dietary:
+    type: unfeaturized
+    auto_fill: False
+  satisfied:
+    type: unfeaturized
+    auto_fill: False
+
+entities:
+  - main
+  - duration
+  - dietary
+  - satisfied
+
+templates:
+  utter_greet:
+    - text: "Hey!"
+    - text: "Hello I'm the recipe generator!"
+  utter_goodbye:
+    - text: "Bye"
+  utter_iamabot:
+    - text: "I'm the piep piper... follow ME!"
+  utter_ask_main:
+    - text: what sort of dish do you want?
+    - text: what would you like the dish to be?
+    - text: anything specific you would like?
+  utter_ask_duration:
+    - text: how long do you have to cook?
+  utter_ask_dietary:
+    - text: do you have any dietary requirements?
+  utter_submit:
+    - text: "Let me just check my database for you"
+  utter_ask_satisfied:
+    - text: "How about this?"
+    - text: "I found this dish in my database, what do you think?"
+  utter_sorry:
+    - text: "sorry"
+  utter_nomatches:
+    - text: "sorry I didn't find any matches for thoose search params"
+  utter_ingredients_required:
+    - text: "Great!, this is what you'll need"
+    - text: "In that case, you'll need these ingredients"
+
+forms:
+  - recipe_form
+  - satisfied_form
+
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: false
