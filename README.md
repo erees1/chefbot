@@ -32,4 +32,4 @@ The project has two main parts:
 
 I am currently experimenting with a [webchat interface](https://github.com/botfront/rasa-webchat) which I plan to include on my own [website](edward-rees.com).
 
-![bot-demo](./assets/bot-demo.jpg)
+<img src="./assets/bot-demo.jpg" alt="bot-demo" style="zoom: 33%;" />
