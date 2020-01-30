@@ -9,6 +9,7 @@
 from typing import Any, Text, Dict, List
 
 from rasa_sdk import Tracker, Action
+from rasa_sdk.events import SlotSet
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.forms import FormAction
 import db_fetch
@@ -27,6 +28,9 @@ def send_option(dispatcher: CollectingDispatcher, tracker: Tracker):
     db_api.set_search_params(search_params)
     recipe = db_api.get_next_recipe()
 
+    # Get the input channel so bot doesn't send something that cant be shown
+    input_channel = tracker.get_latest_input_channel()
+
     if recipe is None:
         print('No Matches section')
         dispatcher.utter_message(template='utter_nomatches')
@@ -36,18 +40,20 @@ def send_option(dispatcher: CollectingDispatcher, tracker: Tracker):
         dispatcher.utter_message(template='utter_no_more_matches')
         sent = False
     else:
-        img_message = {
-            "type": "image",
-            "payload": {
-                "title": recipe['dish'],
-                "src": recipe['pic'],
-                "url": recipe['url']
+        if input_channel == 'socketio':
+            img_message = {
+                "type": "image",
+                "payload": {
+                    "title": recipe['dish'],
+                    "src": recipe['pic'],
+                    "url": recipe['url']
+                }
             }
-        }
+        else:
+            img_message = recipe['dish']
         dispatcher.utter_message(attachment=img_message)
         sent = True
 
-    print(sent)
     return sent
 
 
@@ -79,13 +85,25 @@ class ActionSendIngredients(Action):
 
         return []
 
-class ResetSlot(Action):
+
+class ResetMainSlot(Action):
 
     def name(self):
         return "action_reset_main_slot"
 
     def run(self, dispatcher, tracker, domain):
-        return []
+        print('Reseting main slot')
+        return [SlotSet("main", None)]
+
+class ResetAllSlots(Action):
+
+    def name(self):
+        return "action_reset_all_slots"
+
+    def run(self, dispatcher, tracker, domain):
+        return [SlotSet("main", None),
+                SlotSet("time2cook", None),
+                SlotSet("satisfied", None)]
 
 class ActionRetrieveUser(Action):
     def name(self) -> Text:
@@ -167,7 +185,6 @@ class RecipeForm(FormAction):
             e for e in entities if e['entity'] == 'duration'
             and e['extractor'] == 'DucklingHTTPExtractor'
         ]
-        print(extracted_by_duckling)
         try:
             norm_duration = extracted_by_duckling[0]['additional_info'][
                 'normalized']['value']
@@ -180,7 +197,7 @@ class RecipeForm(FormAction):
 
         print('User preferences collected, submitting recipe form')
         db_api.reset_history()
-        return []
+        return [SlotSet("satisfied", False)]
 
 
 class SatisfiedForm(FormAction):

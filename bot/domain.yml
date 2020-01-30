@@ -21,6 +21,10 @@ actions:
   - utter_ingredients_required
   - utter_no_more_matches
   - utter_search_again
+  - action_send_option
+  - action_reset_main_slot
+  - action_reset_all_slots
+  - utter_should_bot_get_recipe
 
 slots:
   main:
@@ -79,6 +83,9 @@ templates:
   utter_search_again:
     - text: "Shall I search for something else?"
     - text: "Would you like me to look for something else?"
+  utter_should_bot_get_recipe:
+    - text: "Would you like me to find you a recipe to cook?"
+    - text: "Can I help you in finding me a recipe"
 
 forms:
   - recipe_form

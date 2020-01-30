@@ -55,7 +55,6 @@ class API():
         # If its the first ask
         if len(self.history) == 0:
             self.recipes = self.db.get_all()
-            print(self.recipes)
             # If there are no matches return None
             if self.recipes is None:
                 self.record = None

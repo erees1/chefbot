@@ -50,6 +50,7 @@
 - I want a [veggie](dietary) dish
 - Can I have a [meat](dietary) dish
 - I've got [20 mins](duration_text)) please could I have a recipe for [pasta](main)
+- please could i have a recipe
 
 ## intent:inform
 - [chicken](main)
@@ -59,9 +60,15 @@
 - [fish](main)
 - something with [pork](main)
 - [sausages](main)
-- Could you give me something with [chicken](main) in 
+- Could you give me something with [chicken](main) in
 - I have [25 minutes](duration_text))
 - I've only got [1 hour](duration_text))
 - I'm [vegan](dietary)
 - I am a [vegetarian](dietary)
 - [30 mins](duration_text))
+- [chicken](main)
+- [25 mins](duration_text)
+- [beef](main)
+
+## synonym: 30 minutes
+- quick

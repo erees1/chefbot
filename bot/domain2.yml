@@ -1,0 +1,87 @@
+actions:
+- action_reset_all_slots
+- action_reset_main_slot
+- action_retrieve_user
+- action_send_option
+- utter_greet
+- utter_happy_goodbye
+- utter_iamabot
+- utter_ingredients_required
+- utter_no_more_matches
+- utter_nomatches
+- utter_sad_goodbye
+- utter_search_again
+- utter_sorry
+- utter_submit
+entities:
+- dietary
+- duration_text
+- main
+- satisfied
+forms:
+- recipe_form
+- satisfied_form
+intents:
+- inform
+- affirm
+- request_recipe:
+    use_entities: []
+- greet
+- deny
+- goodbye
+- bot_challenge
+- thankyou
+session_config:
+  carry_over_slots_to_new_session: false
+  session_expiration_time: 60
+slots:
+  dietary:
+    auto_fill: false
+    type: unfeaturized
+  main:
+    auto_fill: false
+    type: unfeaturized
+  requested_slot:
+    type: unfeaturized
+  satisfied:
+    auto_fill: false
+    type: bool
+  time2cook:
+    auto_fill: false
+    type: unfeaturized
+templates:
+  utter_ask_dietary:
+  - text: do you have any dietary requirements?
+  utter_ask_main:
+  - text: what sort of dish do you want?
+  - text: what would you like the dish to be?
+  - text: anything specific you would like?
+  utter_ask_satisfied:
+  - text: How about this?
+  - text: I found this dish in my database, what do you think?
+  utter_ask_time2cook:
+  - text: how long do you have to cook?
+  utter_greet:
+  - text: Hey!
+  - text: Hello I'm the recipe generator!
+  utter_happy_goodbye:
+  - text: Enjoy your meal!
+  - text: Hope it's good
+  utter_iamabot:
+  - text: I'm the piep piper... follow ME!
+  utter_ingredients_required:
+  - text: Great!, this is what you'll need
+  - text: In that case, you'll need these ingredients
+  utter_no_more_matches:
+  - text: I'm sorry that was all that I could find in my database
+  utter_nomatches:
+  - text: sorry I didn't find any matches for those search parameters
+  utter_sad_goodbye:
+  - text: Sorry I couldn't help you today, goodbye...
+  utter_search_again:
+  - text: Shall I search for something else?
+  - text: Would you like me to look for something else?
+  utter_sorry:
+  - text: sorry
+  utter_submit:
+  - text: Let me just check my database for you
