@@ -11,26 +11,23 @@ class _DB():
         self.c = self.conn.cursor()
         # self.c.execute("SELECT name FROM sqlite_master WHERE type='table';")
         # print(self.c.fetchall())
-        self.history = []
 
     def set_params(self, search_params):
         self.main = search_params['main']
         self.dietary = search_params['dietary']
-        self.duration = search_params['duration']
+        self.time2cook = search_params['time2cook']
 
     def get_all(self):
         sql = ('SELECT * FROM RECIPES  '
-               f'WHERE duration_seconds <= {self.duration} ')
+               f'WHERE duration_seconds <= {self.time2cook} ')
 
         if self.main is not False and self.main.lower() != 'false':
             sql = sql + f'AND ingredients LIKE "%{self.main}%" '
         if self.dietary is not False and self.dietary.lower() != 'false':
             sql = sql + f'AND tags LIKE "%{self.dietary}%" '
-        # sql = sql + 'ORDER BY RANDOM() LIMIT 1 '
 
-        try:
-            recipes = pd.read_sql(sql, con=self.conn, index_col='index')
-        except Exception:
+        recipes = pd.read_sql(sql, con=self.conn, index_col='index')
+        if recipes.ingredients.count() == 0:
             recipes = None
 
         return recipes
@@ -44,22 +41,37 @@ class API():
     def set_search_params(self, search_params):
         self.db.set_params(search_params)
 
+    def reset_history(self):
+        self.history = []
+
+    def register_liked(self):
+        pass
+
+    def register_disliked(self):
+        pass
+
     def get_next_recipe(self):
+
         # If its the first ask
         if len(self.history) == 0:
             self.recipes = self.db.get_all()
+            print(self.recipes)
+            # If there are no matches return None
             if self.recipes is None:
-                return None
-            self.recipes.sample(frac=1,
-                                random_state=np.random.randint(0, 1000))
-            self.n_results = len(self.recipes)
+                self.record = None
+                return self.record
+            # If there are matches shuffle the order
+            elif self.recipes is not None:
+                self.recipes = self.recipes.sample(frac=1)
+                self.n_results = len(self.recipes)
 
+        # If bot has not returned all possible options
         if len(self.history) < self.n_results:
             single_recipe = self.recipes.iloc[len(self.history)]
             self.record = single_recipe.to_dict()
             self.record['id'] = single_recipe.name
             self.history.append(self.record['id'])
-
+        # If returned all options send 'End'
         elif len(self.history) >= self.n_results:
             self.record = 'End'
 

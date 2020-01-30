@@ -21,14 +21,20 @@ def send_option(dispatcher: CollectingDispatcher, tracker: Tracker):
     search_params = {
         'main': tracker.get_slot('main'),
         'dietary': tracker.get_slot('dietary'),
-        'duration': tracker.get_slot('duration')
+        'time2cook': tracker.get_slot('time2cook')
     }
 
     db_api.set_search_params(search_params)
     recipe = db_api.get_next_recipe()
 
     if recipe is None:
-        dispatcher.utter_message(text='No matches')
+        print('No Matches section')
+        dispatcher.utter_message(template='utter_nomatches')
+        sent = False
+    elif recipe == 'End':
+        print('No more matches section')
+        dispatcher.utter_message(template='utter_no_more_matches')
+        sent = False
     else:
         img_message = {
             "type": "image",
@@ -39,8 +45,10 @@ def send_option(dispatcher: CollectingDispatcher, tracker: Tracker):
             }
         }
         dispatcher.utter_message(attachment=img_message)
+        sent = True
 
-    return []
+    print(sent)
+    return sent
 
 
 def send_ingredients(dispatcher: CollectingDispatcher, tracker: Tracker):
@@ -49,6 +57,35 @@ def send_ingredients(dispatcher: CollectingDispatcher, tracker: Tracker):
     dispatcher.utter_message(template='utter_ingredients_required')
     dispatcher.utter_message(text=f"{recipe['ingredients']}")
 
+
+class ActionSendOption(Action):
+    def name(self) -> Text:
+        return "action_send_option"
+
+    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        send_option(dispatcher, tracker)
+
+        return []
+
+
+class ActionSendIngredients(Action):
+    def name(self) -> Text:
+        return "action_send_ingredients"
+
+    def run(self, dispatcher: CollectingDispatcher, tracker: Tracker,
+            domain: Dict[Text, Any]) -> List[Dict[Text, Any]]:
+        send_ingredients(dispatcher, tracker)
+
+        return []
+
+class ResetSlot(Action):
+
+    def name(self):
+        return "action_reset_main_slot"
+
+    def run(self, dispatcher, tracker, domain):
+        return []
 
 class ActionRetrieveUser(Action):
     def name(self) -> Text:
@@ -72,7 +109,7 @@ class RecipeForm(FormAction):
     @staticmethod
     def required_slots(tracker: Tracker):
         '''List of slots bot needs to fill'''
-        return ['main', 'dietary', 'duration']
+        return ['main', 'dietary', 'time2cook']
 
     def slot_mappings(self):
         """A dictionary to map required slots to
@@ -83,8 +120,9 @@ class RecipeForm(FormAction):
         mappings = {
             'main': [self.from_entity(entity='main'),
                      self.from_text()],
-            'duration':
+            'time2cook':
             [self.from_entity(entity='duration'),
+             self.from_entity(entity='duration_text'),
              self.from_text()],
             'dietary': [
                 self.from_entity(entity='dietary'),
@@ -114,7 +152,7 @@ class RecipeForm(FormAction):
     ):
         return {'dietary': value}
 
-    def validate_duration(
+    def validate_time2cook(
             self,
             value: Text,
             dispatcher: CollectingDispatcher,
@@ -129,18 +167,19 @@ class RecipeForm(FormAction):
             e for e in entities if e['entity'] == 'duration'
             and e['extractor'] == 'DucklingHTTPExtractor'
         ]
+        print(extracted_by_duckling)
         try:
             norm_duration = extracted_by_duckling[0]['additional_info'][
                 'normalized']['value']
         except Exception:
             norm_duration = value
-        return {'duration': norm_duration}
+        return {'time2cook': norm_duration}
 
     def submit(self, dispatcher: CollectingDispatcher, tracker: Tracker,
                domain: Dict[Text, Any]):
-        print('Submitting form')
-        dispatcher.utter_message(template='utter_submit')
-        send_option(dispatcher, tracker)
+
+        print('User preferences collected, submitting recipe form')
+        db_api.reset_history()
         return []
 
 
@@ -176,13 +215,16 @@ class SatisfiedForm(FormAction):
             domain: Dict[Text, Any],
     ):
         if value is False:
-            send_option(dispatcher, tracker)
-            value = None
-
-        if value is True:
+            sent = send_option(dispatcher, tracker)
+            if sent is False:
+                value = False
+            elif sent is True:
+                value = None
+        elif value is True:
             send_ingredients(dispatcher, tracker)
             value = True
 
+        print(f'Returned satisfied {value}')
         return {'satisfied': value}
 
     def submit(self, dispatcher: CollectingDispatcher, tracker: Tracker,
