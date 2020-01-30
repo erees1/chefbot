@@ -1,6 +1,22 @@
 # Configuration for Rasa NLU.
 # https://rasa.com/docs/rasa/nlu/components/
 language: en
+
+# pipeline:
+#   - name: "SpacyNLP"
+#   - name: "SpacyTokenizer"
+#   - name: "SpacyFeaturizer"
+#   - name: "RegexFeaturizer"
+#   - name: "CRFEntityExtractor"
+#   - name: "EntitySynonymMapper"
+#   - name: DucklingHTTPExtractor
+#     url: http://localhost:8000
+#     dimensions:
+#       - duration
+#     local: 'en_GB'
+#     timezone: 'Europe/London'
+#   - name: "SklearnIntentClassifier"
+
 pipeline:
   - name: WhitespaceTokenizer
   - name: CRFEntityExtractor

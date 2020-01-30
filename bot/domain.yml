@@ -1,96 +1,98 @@
-intents:
-  - request_recipe:
-      use_entities: []
-  - greet
-  - goodbye
-  - affirm
-  - deny
-  - bot_challenge
-  - thankyou
-  - inform
-
 actions:
-  - utter_greet
-  - utter_happy_goodbye
-  - utter_sad_goodbye
-  - utter_iamabot
-  - utter_submit
-  - utter_sorry
-  - utter_nomatches
-  - action_retrieve_user
-  - utter_ingredients_required
-  - utter_no_more_matches
-  - utter_search_again
-  - action_send_option
-  - action_reset_main_slot
-  - action_reset_all_slots
-  - utter_should_bot_get_recipe
-
-slots:
-  main:
-    type: unfeaturized
-    auto_fill: False
-  time2cook:
-    type: unfeaturized
-    auto_fill: False
-  dietary:
-    type: unfeaturized
-    auto_fill: False
-  satisfied:
-    type: bool
-    auto_fill: False
-
-
+- action_reset_all_slots
+- action_reset_main_slot
+- action_retrieve_user
+- action_send_option
+- utter_greet
+- utter_happy_goodbye
+- utter_iamabot
+- utter_ingredients_required
+- utter_no_more_matches
+- utter_nomatches
+- utter_sad_goodbye
+- utter_search_again
+- utter_should_bot_get_recipe
+- utter_sorry
+- utter_submit
+- action_restart
 entities:
-  - main
-  - duration_text
-  - dietary
-  - satisfied
-
-templates:
-  utter_greet:
-    - text: "Hey!"
-    - text: "Hello I'm the recipe generator!"
-  utter_happy_goodbye:
-    - text: "Enjoy your meal!"
-    - text: "Hope it's good"
-  utter_sad_goodbye:
-    - text: "Sorry I couldn't help you today, goodbye..."
-  utter_iamabot:
-    - text: "I'm the piep piper... follow ME!"
-  utter_ask_main:
-    - text: what sort of dish do you want?
-    - text: what would you like the dish to be?
-    - text: anything specific you would like?
-  utter_ask_time2cook:
-    - text: how long do you have to cook?
-  utter_ask_dietary:
-    - text: do you have any dietary requirements?
-  utter_submit:
-    - text: "Let me just check my database for you"
-  utter_ask_satisfied:
-    - text: "How about this?"
-    - text: "I found this dish in my database, what do you think?"
-  utter_sorry:
-    - text: "sorry"
-  utter_nomatches:
-    - text: "sorry I didn't find any matches for those search parameters"
-  utter_ingredients_required:
-    - text: "Great!, this is what you'll need"
-    - text: "In that case, you'll need these ingredients"
-  utter_no_more_matches:
-    - text: "I'm sorry that was all that I could find in my database"
-  utter_search_again:
-    - text: "Shall I search for something else?"
-    - text: "Would you like me to look for something else?"
-  utter_should_bot_get_recipe:
-    - text: "Would you like me to find you a recipe to cook?"
-    - text: "Can I help you in finding me a recipe"
-
+- dietary
+- duration_text
+- main
+- satisfied
 forms:
-  - recipe_form
-  - satisfied_form
-
+- recipe_form
+- satisfied_form
+intents:
+- inform
+- affirm
+- greet
+- deny
+- correct_dietary_negative
+- request_recipe:
+    use_entities: []
+- goodbye
+- bot_challenge
+- thankyou
+- positive
+- negative
 session_config:
-  session_expiration_time: 60
   carry_over_slots_to_new_session: false
+  session_expiration_time: 60
+slots:
+  dietary:
+    auto_fill: false
+    type: unfeaturized
+  main:
+    auto_fill: false
+    type: unfeaturized
+  requested_slot:
+    type: unfeaturized
+  satisfied:
+    auto_fill: false
+    type: bool
+  time2cook:
+    auto_fill: false
+    type: unfeaturized
+templates:
+  utter_ask_dietary:
+  - text: do you have any dietary requirements?
+  utter_ask_main:
+  - text: what sort of dish do you want?
+  - text: what would you like the dish to be?
+  - text: anything specific you would like?
+  utter_ask_satisfied:
+  - text: How about this?
+  - text: I found this dish in my database, what do you think?
+  utter_ask_time2cook:
+  - text: how long do you have to cook?
+  utter_greet:
+  - text: Hey!
+  - text: Hello I'm the recipe generator!
+  utter_happy_goodbye:
+  - text: Enjoy your meal!
+  - text: Hope it's good
+  utter_iamabot:
+  - text: I'm the piep piper... follow ME!
+  utter_ingredients_required:
+  - text: Great!, this is what you'll need
+  - text: In that case, you'll need these ingredients
+  utter_no_more_matches:
+  - text: I'm sorry that was all that I could find in my database
+  utter_nomatches:
+  - text: sorry I didn't find any matches for those search parameters
+  utter_sad_goodbye:
+  - text: Sorry I couldn't help you today, goodbye...
+  utter_search_again:
+  - text: Shall I search for something else?
+  - text: Would you like me to look for something else?
+  utter_should_bot_get_recipe:
+  - text: Would you like me to find you a recipe to cook?
+  - text: Can I help you in finding me a recipe
+  utter_sorry:
+  - text: sorry
+  utter_submit:
+  - text: Let me just check my database for you
+  utter_default:
+  - text: I'm sorry I don't understand that
+  - text: I'm not sure I understand

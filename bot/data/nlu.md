@@ -18,6 +18,18 @@
 - of course
 - that sounds good
 - correct
+- yes please
+
+## intent:postive
+- sounds good
+- looks excellent
+- yum
+- delicous
+
+## intent:negative
+- looks horrible
+- urgh
+- grim
 
 ## intent:deny
 - no
@@ -66,9 +78,12 @@
 - I'm [vegan](dietary)
 - I am a [vegetarian](dietary)
 - [30 mins](duration_text))
-- [chicken](main)
 - [25 mins](duration_text)
 - [beef](main)
+- [25 mins](duration_text)
+
+## intent:correct_dietary_negative
+- Actually I don't have any dietary requirements
 
 ## synonym: 30 minutes
 - quick

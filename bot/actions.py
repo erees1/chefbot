@@ -140,8 +140,7 @@ class RecipeForm(FormAction):
                      self.from_text()],
             'time2cook':
             [self.from_entity(entity='duration'),
-             self.from_entity(entity='duration_text'),
-             self.from_text()],
+             self.from_entity(entity='duration_text')],
             'dietary': [
                 self.from_entity(entity='dietary'),
                 self.from_intent(intent="deny", value=False),
@@ -218,7 +217,9 @@ class SatisfiedForm(FormAction):
         mappings = {
             'satisfied': [
                 self.from_intent(intent="deny", value=False),
-                self.from_intent(intent="affirm", value=True)
+                self.from_intent(intent="negative", value=False),
+                self.from_intent(intent="affirm", value=True),
+                self.from_intent(intent="postive", value=True)
             ]
         }
 
