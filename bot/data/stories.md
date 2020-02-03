@@ -18,7 +18,6 @@
     - form{"name": null}
     - slot{"requested_slot": null}
     - utter_happy_goodbye
-    - action_reset_all_slots
     - action_restart
 
 ## interactive_story_1
@@ -108,9 +107,6 @@
     - slot{"requested_slot": null}
     - utter_happy_goodbye
     - action_reset_all_slots
-    - slot{"main": null}
-    - slot{"time2cook": null}
-    - slot{"satisfied": null}
     - action_restart
 
 
@@ -147,8 +143,13 @@
     - form{"name": null}
     - slot{"requested_slot": null}
     - utter_happy_goodbye
-    - action_reset_all_slots
-    - slot{"main": null}
-    - slot{"time2cook": null}
-    - slot{"satisfied": null}
+    - action_restart
+
+## interactive_story_3
+* greet
+    - utter_greet
+    - action_retrieve_user
+    - utter_should_bot_get_recipe
+* deny
+    - utter_goodbye_neutral
     - action_restart

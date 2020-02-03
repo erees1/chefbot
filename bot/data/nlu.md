@@ -79,8 +79,6 @@
 - I am a [vegetarian](dietary)
 - [30 mins](duration_text))
 - [25 mins](duration_text)
-- [beef](main)
-- [25 mins](duration_text)
 
 ## intent:correct_dietary_negative
 - Actually I don't have any dietary requirements

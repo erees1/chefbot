@@ -1,8 +1,10 @@
 actions:
 - action_reset_all_slots
 - action_reset_main_slot
+- action_restart
 - action_retrieve_user
 - action_send_option
+- utter_goodbye_neutral
 - utter_greet
 - utter_happy_goodbye
 - utter_iamabot
@@ -14,7 +16,6 @@ actions:
 - utter_should_bot_get_recipe
 - utter_sorry
 - utter_submit
-- action_restart
 entities:
 - dietary
 - duration_text
@@ -24,10 +25,10 @@ forms:
 - recipe_form
 - satisfied_form
 intents:
-- inform
-- affirm
 - greet
 - deny
+- inform
+- affirm
 - correct_dietary_negative
 - request_recipe:
     use_entities: []
@@ -56,7 +57,7 @@ slots:
     type: unfeaturized
 templates:
   utter_ask_dietary:
-  - text: do you have any dietary requirements?
+  - text: Do you have any dietary requirements? At the moment I only have recipes categorised by vegan and veggie.
   utter_ask_main:
   - text: what sort of dish do you want?
   - text: what would you like the dish to be?
@@ -66,9 +67,16 @@ templates:
   - text: I found this dish in my database, what do you think?
   utter_ask_time2cook:
   - text: how long do you have to cook?
+  utter_default:
+  - text: I'm sorry I don't understand that
+  - text: I'm not sure I understand
+  utter_goodbye_neutral:
+  - text: Okay, goodbye
+  - text: Have a nice day!
   utter_greet:
   - text: Hey!
   - text: Hello I'm the recipe generator!
+  - text: Hello
   utter_happy_goodbye:
   - text: Enjoy your meal!
   - text: Hope it's good
@@ -93,6 +101,3 @@ templates:
   - text: sorry
   utter_submit:
   - text: Let me just check my database for you
-  utter_default:
-  - text: I'm sorry I don't understand that
-  - text: I'm not sure I understand

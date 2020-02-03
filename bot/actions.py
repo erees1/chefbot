@@ -9,7 +9,7 @@
 from typing import Any, Text, Dict, List
 
 from rasa_sdk import Tracker, Action
-from rasa_sdk.events import SlotSet
+from rasa_sdk.events import SlotSet, Restarted
 from rasa_sdk.executor import CollectingDispatcher
 from rasa_sdk.forms import FormAction
 import db_fetch
@@ -19,11 +19,7 @@ db_api = db_fetch.API()
 
 
 def send_option(dispatcher: CollectingDispatcher, tracker: Tracker):
-    search_params = {
-        'main': tracker.get_slot('main'),
-        'dietary': tracker.get_slot('dietary'),
-        'time2cook': tracker.get_slot('time2cook')
-    }
+    search_params = get_params(dispatcher, tracker)
 
     db_api.set_search_params(search_params)
     recipe = db_api.get_next_recipe()
@@ -64,6 +60,42 @@ def send_ingredients(dispatcher: CollectingDispatcher, tracker: Tracker):
     dispatcher.utter_message(text=f"{recipe['ingredients']}")
 
 
+def send_link(dispatcher: CollectingDispatcher, tracker: Tracker):
+    recipe = db_api.get_current_recipe()
+    input_channel = tracker.get_latest_input_channel()
+    if input_channel == 'socketio':
+        message = {
+            "attachment": {
+                "type": "template",
+                "payload": {
+                    "template_type":
+                    "generic",
+                    "elements": [{
+                        "title":
+                        "Title",
+                        "buttons": [{
+                            "title": "Here is the link to the recipe",
+                            "url": recipe['url']
+                        }]
+                    }]
+                }
+            }
+        }
+        dispatcher.utter_message(attachment=message)
+    else:
+        dispatcher.utter_message(
+            text=f'Here is the link to the full recipe {recipe["url"]}')
+
+
+def get_params(dispatcher: CollectingDispatcher, tracker: Tracker):
+    search_params = {
+        'main': tracker.get_slot('main'),
+        'dietary': tracker.get_slot('dietary'),
+        'time2cook': tracker.get_slot('time2cook')
+    }
+    return search_params
+
+
 class ActionSendOption(Action):
     def name(self) -> Text:
         return "action_send_option"
@@ -87,7 +119,6 @@ class ActionSendIngredients(Action):
 
 
 class ResetMainSlot(Action):
-
     def name(self):
         return "action_reset_main_slot"
 
@@ -95,15 +126,28 @@ class ResetMainSlot(Action):
         print('Reseting main slot')
         return [SlotSet("main", None)]
 
-class ResetAllSlots(Action):
 
+class ResetAllSlots(Action):
     def name(self):
         return "action_reset_all_slots"
 
     def run(self, dispatcher, tracker, domain):
-        return [SlotSet("main", None),
-                SlotSet("time2cook", None),
-                SlotSet("satisfied", None)]
+        return [
+            SlotSet("main", None),
+            SlotSet("time2cook", None),
+            SlotSet("satisfied", None)
+        ]
+
+
+class RestartAction(Action):
+    def name(self):
+        return "action_restart"
+
+    def run(self, dispatcher, tracker, domain):
+        # do something here
+
+        return [Restarted()]
+
 
 class ActionRetrieveUser(Action):
     def name(self) -> Text:
@@ -115,7 +159,7 @@ class ActionRetrieveUser(Action):
         user_id = tracker.sender_id
         print(user_id)
 
-        dispatcher.utter_message(f'Hello user: {user_id}')
+        # dispatcher.utter_message(f'Hello user: {user_id}')
 
         return []
 
@@ -136,11 +180,15 @@ class RecipeForm(FormAction):
             - a whole message
             or a list of them, where a first match will be picked"""
         mappings = {
-            'main': [self.from_entity(entity='main'),
-                     self.from_text()],
-            'time2cook':
-            [self.from_entity(entity='duration'),
-             self.from_entity(entity='duration_text')],
+            'main': [
+                self.from_entity(entity='main'),
+                self.from_intent(intent="deny", value=False),
+                self.from_text()
+            ],
+            'time2cook': [
+                self.from_entity(entity='duration'),
+                self.from_entity(entity='duration_text')
+            ],
             'dietary': [
                 self.from_entity(entity='dietary'),
                 self.from_intent(intent="deny", value=False),
@@ -157,6 +205,13 @@ class RecipeForm(FormAction):
             tracker: Tracker,
             domain: Dict[Text, Any],
     ):
+
+        search_params = get_params(dispatcher, tracker)
+        if db_api.are_matches(search_params):
+            value = value
+        else:
+            dispatcher.utter_message(template='utter_nomatches')
+            value = None
 
         return {'main': value}
 
@@ -240,9 +295,9 @@ class SatisfiedForm(FormAction):
                 value = None
         elif value is True:
             send_ingredients(dispatcher, tracker)
+            send_link(dispatcher, tracker)
             value = True
 
-        print(f'Returned satisfied {value}')
         return {'satisfied': value}
 
     def submit(self, dispatcher: CollectingDispatcher, tracker: Tracker,
