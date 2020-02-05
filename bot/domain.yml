@@ -25,10 +25,11 @@ forms:
 - recipe_form
 - satisfied_form
 intents:
+- inform
 - greet
 - deny
-- inform
 - affirm
+- postive
 - correct_dietary_negative
 - request_recipe:
     use_entities: []
@@ -57,7 +58,8 @@ slots:
     type: unfeaturized
 templates:
   utter_ask_dietary:
-  - text: Do you have any dietary requirements? At the moment I only have recipes categorised by vegan and veggie.
+  - text: Do you have any dietary requirements? At the moment I only have recipes
+      categorised by vegan and veggie.
   utter_ask_main:
   - text: what sort of dish do you want?
   - text: what would you like the dish to be?

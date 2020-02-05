@@ -5,6 +5,8 @@
 - good morning
 - good evening
 - hey there
+- hows it going
+- hi there
 
 ## intent:goodbye
 - bye
@@ -25,6 +27,7 @@
 - looks excellent
 - yum
 - delicous
+- nice
 
 ## intent:negative
 - looks horrible
@@ -63,6 +66,8 @@
 - Can I have a [meat](dietary) dish
 - I've got [20 mins](duration_text)) please could I have a recipe for [pasta](main)
 - please could i have a recipe
+- Could you give me something with [chicken](main) in
+- yeah please could you give me something with [chicken](main)
 
 ## intent:inform
 - [chicken](main)
@@ -72,13 +77,22 @@
 - [fish](main)
 - something with [pork](main)
 - [sausages](main)
-- Could you give me something with [chicken](main) in
 - I have [25 minutes](duration_text))
 - I've only got [1 hour](duration_text))
 - I'm [vegan](dietary)
 - I am a [vegetarian](dietary)
 - [30 mins](duration_text))
 - [25 mins](duration_text)
+- something with [chicken](main)
+- an hour
+- [pasta](main)
+- [30 minutes](duration_text)
+- something with [rice](main)
+- [30 mins](duration_text)
+- [beef](main)
+- [25 mins](duration_text)
+- [chicken](main)
+- [30 mins](duration_text)
 
 ## intent:correct_dietary_negative
 - Actually I don't have any dietary requirements

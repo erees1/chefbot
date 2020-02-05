@@ -64,24 +64,26 @@ def send_link(dispatcher: CollectingDispatcher, tracker: Tracker):
     recipe = db_api.get_current_recipe()
     input_channel = tracker.get_latest_input_channel()
     if input_channel == 'socketio':
-        message = {
-            "attachment": {
-                "type": "template",
-                "payload": {
-                    "template_type":
-                    "generic",
-                    "elements": [{
-                        "title":
-                        "Title",
-                        "buttons": [{
-                            "title": "Here is the link to the recipe",
-                            "url": recipe['url']
-                        }]
-                    }]
-                }
-            }
-        }
-        dispatcher.utter_message(attachment=message)
+        # message = {
+        #     "type": "template",
+        #     "payload": {
+        #         "template_type":
+        #         "generic",
+        #         "elements": [{
+        #             "title":
+        #             "",
+        #             "buttons": [{
+        #                 "title": "Here is the link to the recipe",
+        #                 "url": recipe['url']
+        #             }]
+        #         }]
+        #     }
+        # }
+        # dispatcher.utter_message(attachment=message)
+
+        message = f"Here is the link to the full recipe:"
+        dispatcher.utter_message(text=message)
+        dispatcher.utter_message(f"[{recipe['dish']}]({recipe['url']})")
     else:
         dispatcher.utter_message(
             text=f'Here is the link to the full recipe {recipe["url"]}')
@@ -296,7 +298,6 @@ class SatisfiedForm(FormAction):
         elif value is True:
             send_ingredients(dispatcher, tracker)
             send_link(dispatcher, tracker)
-            value = True
 
         return {'satisfied': value}
 

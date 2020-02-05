@@ -6,7 +6,8 @@ website_path = '../../Website/edward-rees.com'
 page = 'chefbot.html'
 rasa_port = '5005'
 rasa_actions_port = '5056'
-ngrok_interface = 'http://127.0.0.1:4041/api/tunnels'
+ngrok_interface = ['http://127.0.0.1:4040/api/tunnels',
+                   'http://127.0.0.1:4041/api/tunnels']
 
 
 def update_website(path, page, url):
@@ -17,7 +18,7 @@ def update_website(path, page, url):
         os.system(f'cd {website_path}'
                   '&& git add .'
                   '&& git commit -m "Updated socket for bot"'
-                  '; git push origin scroll_fix')
+                  '; git push origin master')
 
     page_path = path+'/'+page
     with open(page_path) as f:
@@ -42,7 +43,10 @@ def start_ngrok(port_to_expose):
 
 
 def get_ngrok_url(ngrok_interface):
-    r = requests.get(ngrok_interface)
+    try:
+        r = requests.get(ngrok_interface[0])
+    except Exception:
+        r = requests.get(ngrok_interface[1])
     r = r.json()
     public_url = r['tunnels'][0]['public_url']
     return public_url
