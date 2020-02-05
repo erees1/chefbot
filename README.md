@@ -1,4 +1,4 @@
-# recipe-chatbot
+# recipe-chatbot (Chefbot)
 
 ## Project Overview
 
@@ -6,7 +6,7 @@ This project uses the Rasa open source chatbot framework to create a bot that ca
 
 ## Technologies used
 
-- [Rasa](https://github.com/RasaHQ/rasa)
+- [Rasa](https://github.com/RasaHQ/rasa), an open source framework in Python for developing chat bots
 - Selenium to scrape the web
 - Sqlite as a database for scraped recipes
 
@@ -30,6 +30,10 @@ The project has two main parts:
 
 ## Interface
 
-I am currently experimenting with a [webchat interface](https://github.com/botfront/rasa-webchat) which I plan to include on my own [website](edward-rees.com).
+I have integrated a [webchat interface](https://github.com/botfront/rasa-webchat) on my [website](edward-rees.com/chefbot). As the bot / rasa servers  run on my computer it is not live all the time but if it is running you will be able to chat with the bot.
 
-<img src="./assets/bot-demo.jpg" alt="bot-demo" style="zoom: 33%;" />
+My website runs on github pages and communicates with the bot using [ngrok](https://ngrok.com).  The ngrok url changes each time you run it (at least on the free version) so the [`update_website.py`](./bot/update_website.py) script checks what the public ngrok url is and then updates the html on the chefbot page of website and pushes the changes to GitHub.
+
+### Example Conversation
+
+<img src="./assets/chefbot_ex_combined.png" alt="bot-demo"  />
