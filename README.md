@@ -32,7 +32,7 @@ The project has two main parts:
 
 I have integrated a [webchat interface](https://github.com/botfront/rasa-webchat) on my [website](https://edward-rees.com/chefbot). As the bot / rasa servers  run on my computer it is not live all the time but if it is running you will be able to chat with the bot.
 
-My website runs on github pages and communicates with the bot using [ngrok](https://ngrok.com).  The ngrok url changes each time you run it (at least on the free version) so the [`update_website.py`](./update_website.py) script checks what the public ngrok url is and then updates the html on the chefbot page of website and pushes the changes to GitHub.
+My website runs on github pages and communicates with the bot using [ngrok](https://ngrok.com).  The ngrok url changes each time you run it (at least on the free version) so the [`update_website.py`](./update_website.py) script checks what the public ngrok url is and then updates the html on the chefbot page of the website and pushes the changes to GitHub.
 
 ### Example Conversation
 
