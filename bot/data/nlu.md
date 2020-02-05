@@ -64,7 +64,7 @@
 - Could you give me a [vegan](dietary) recipe
 - I want a [veggie](dietary) dish
 - Can I have a [meat](dietary) dish
-- I've got [20 mins](duration_text)) please could I have a recipe for [pasta](main)
+- I've got [20 mins](duration_text) please could I have a recipe for [pasta](main)
 - please could i have a recipe
 - Could you give me something with [chicken](main) in
 - yeah please could you give me something with [chicken](main)
