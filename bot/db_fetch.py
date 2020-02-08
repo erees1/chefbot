@@ -19,31 +19,41 @@ class _DB():
         sql = ('SELECT * FROM RECIPES  ')
 
         if self.is_specified(time2cook):
-            print('time2cook')
-            query = f'duration_seconds <= {time2cook} '
+            time2cook_v = int(time2cook['value'])
+            query = [f'duration_seconds <= {time2cook_v}']
             sql = self.add_query(sql, query)
 
         if self.is_specified(main):
-            print('main')
-            query = f'ingredients LIKE "%{main}%" '
+            main_queries = [main]
+            if main[-1] == 's':
+                main_queries.append(main[:-1])
+
+            query = [
+                f'(ingredients LIKE "%{main}%" OR dish LIKE "%{main}%")'
+                for main in main_queries
+            ]
             sql = self.add_query(sql, query)
 
         if self.is_specified(dietary):
-            print('dietary')
-            query = f'tags LIKE "%{dietary}%" '
-            sql = self.add_query(sql, query)
+            dietary = [dietary]
+            if dietary[0] == 'vegeterian':
+                dietary.append('vegan')
 
+            query = [f'tags LIKE "%{d}%"' for d in dietary]
+            sql = self.add_query(sql, query)
+        # print(sql)
         recipes = pd.read_sql(sql, con=self.conn, index_col='index')
         if recipes.ingredients.count() == 0:
             recipes = None
 
         return recipes
 
-    def add_query(self, sql, query):
+    def add_query(self, sql, queries, logic='OR'):
+        query = '(' + f' {logic} '.join(queries) + ')'
         if 'where' in sql.lower():
-            sql = sql + f'AND {query}'
+            sql = sql + f' AND {query} '
         elif 'where' not in sql.lower():
-            sql = sql + f'WHERE {query}'
+            sql = sql + f' WHERE {query} '
         return sql
 
     def is_specified(self, param):
@@ -106,8 +116,8 @@ class API():
         return self.record
 
     def are_matches(self, search_params):
+        print('checking database for matches:', search_params)
         if self.db.get_all(search_params) is not None:
             return True
         else:
             return False
-
