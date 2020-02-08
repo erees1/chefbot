@@ -494,30 +494,26 @@
     - form{"name": null}
     - slot{"requested_slot": null}
     - utter_which_slot_to_change
-* change_choices{"change_main": "ingredients"}
-    - action_reset_main_slot
+* change_choices{"change_both": "both"}
+    - action_reset_main_duration_slots
     - slot{"main": null}
+    - slot{"duration": null}
     - slot{"satisfied": null}
     - recipe_form
     - form{"name": "recipe_form"}
     - action_listen
     - slot{"dietary": false}
-    - slot{"duration": {"value": 2400, "unit": "second"}}
     - slot{"requested_slot": "main"}
 * form: inform{"main": "noodles"}
     - recipe_form
     - slot{"main": "noodles"}
-    - slot{"satisfied": false}
-    - slot{"change_main": null}
-    - slot{"change_duration": null}
-    - slot{"change_both": null}
-    - form{"name": null}
-    - slot{"requested_slot": null}
+    - slot{"requested_slot": "duration"}
+* form: inform{"duration": 90}
     - recipe_form
     - form{"name": "recipe_form"}
-    - slot{"main": "noodles"}
+    - slot{"main": false}
     - slot{"dietary": false}
-    - slot{"duration": {"value": 2400, "unit": "second"}}
+    - slot{"duration": {"value": 5400, "unit": "second"}}
     - slot{"satisfied": false}
     - slot{"change_main": null}
     - slot{"change_duration": null}
@@ -529,6 +525,76 @@
     - slot{"satisfied": null}
     - slot{"requested_slot": "satisfied"}
 * form: postive
+    - form: satisfied_form
+    - slot{"satisfied": true}
+    - form{"name": null}
+    - slot{"requested_slot": null}
+    - utter_happy_goodbye
+    - action_restart
+
+## interactive_story_1
+* greet
+    - utter_greet
+    - action_retrieve_user
+    - utter_should_bot_get_recipe
+* affirm
+    - recipe_form
+    - form{"name": "recipe_form"}
+    - slot{"requested_slot": "main"}
+* form: inform{"main": "beef"}
+    - form: recipe_form
+    - slot{"main": "beef"}
+    - slot{"requested_slot": "dietary"}
+* form: change_choices{"main": "chicken"}
+    - form: recipe_form
+    - slot{"main": "chicken"}
+    - slot{"requested_slot": "dietary"}
+* form: deny
+    - form: recipe_form
+    - slot{"dietary": false}
+    - slot{"requested_slot": "duration"}
+* form: inform{"duration": 1}
+    - form: recipe_form
+    - slot{"duration": {"value": 3600, "unit": "second"}}
+    - slot{"satisfied": false}
+    - slot{"change_main": null}
+    - slot{"change_duration": null}
+    - slot{"change_both": null}
+    - form{"name": null}
+    - slot{"requested_slot": null}
+    - satisfied_form
+    - form{"name": "satisfied_form"}
+    - slot{"satisfied": null}
+    - slot{"requested_slot": "satisfied"}
+* change_choices
+    - action_deactivate_form
+    - form{"name": null}
+    - slot{"requested_slot": null}
+    - utter_which_slot_to_change
+* change_choices{"change_duration": "time"}
+    - action_reset_duration_slot
+    - slot{"duration": null}
+    - slot{"satisfied": null}
+    - recipe_form
+    - form{"name": "recipe_form"}
+    - action_listen
+    - slot{"main": "chicken"}
+    - slot{"dietary": false}
+    - slot{"requested_slot": "duration"}
+* form: inform{"duration": 90}
+    - recipe_form
+    - slot{"duration": {"value": 5400, "unit": "second"}}
+    - slot{"satisfied": false}
+    - slot{"change_main": null}
+    - slot{"change_duration": null}
+    - slot{"change_both": null}
+    - form{"name": null}
+    - slot{"requested_slot": null}
+    - satisfied_form
+    - form{"name": "satisfied_form"}
+    - slot{"satisfied": null}
+    - slot{"requested_slot": "satisfied"}
+* form: affirm
     - form: satisfied_form
     - slot{"satisfied": true}
     - form{"name": null}

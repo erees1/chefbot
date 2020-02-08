@@ -39,11 +39,11 @@ forms:
 - recipe_form
 - satisfied_form
 intents:
-- inform
-- affirm
-- greet
 - deny
+- affirm
 - change_choices
+- greet
+- inform
 - postive
 - request_recipe:
     use_entities: []

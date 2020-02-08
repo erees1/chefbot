@@ -7,6 +7,7 @@
 - hey there
 - hows it going
 - hi there
+- yo
 
 ## intent:goodbye
 - bye
@@ -21,6 +22,8 @@
 - that sounds good
 - correct
 - yes please
+- yep
+- y
 
 ## intent:postive
 - sounds good
@@ -30,6 +33,7 @@
 - nice
 - awesome
 - brilliant
+- noice
 
 ## intent:negative
 - looks horrible
@@ -44,6 +48,8 @@
 - no way
 - not really
 - I don't
+- nope
+- n
 
 ## intent:thankyou
 - thanks
@@ -112,9 +118,11 @@
 - about [45 minutes](duration)
 - [40 mins](duration)
 - [45 mins](duration)
-- [rice](main)
-- [40 mins](duration)
 - [noodles](main)
+- [40 minutes](duration)
+- an hour and half
+- [beef](main)
+- an hour and a half
 
 ## intent:inform_dietary
 - [vegan](dietary)
@@ -142,12 +150,18 @@
 - actually i've changed my mind
 - [both](change_both)
 - [ingrediants](change_main:ingredients)
+- i've changed my mind
+- actually could I get something with [chicken](main)
+- [time](change_duration)
 
 ## synonym:30 minutes
 - quick
 - fast
 - speedy
 - snappy
+
+## synonym:ingredients
+- ingrediants
 
 ## synonym:vegeterian
 - veggie
