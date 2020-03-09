@@ -3,9 +3,8 @@ import pandas as pd
 
 
 class _DB():
-    def __init__(self):
+    def __init__(self, sqlite_db):
         # Establish connection with database
-        sqlite_db = '../database/recipes_db.sqlite'
         self.conn = sqlite3.connect(sqlite_db)
         self.c = self.conn.cursor()
         # self.c.execute("SELECT name FROM sqlite_master WHERE type='table';")
@@ -24,15 +23,21 @@ class _DB():
             sql = self.add_query(sql, query)
 
         if self.is_specified(main):
-            main_queries = [main]
-            if main[-1] == 's':
-                main_queries.append(main[:-1])
-
-            query = [
-                f'(ingredients LIKE "%{main}%" OR dish LIKE "%{main}%")'
-                for main in main_queries
-            ]
-            sql = self.add_query(sql, query)
+            main_queries = main
+            if not isinstance(main, list):
+                main_queries = [main]
+            query_ = []
+            for main in main_queries:
+                query = []
+                query.append(f'(ingredients LIKE "%{main}%" OR dish LIKE "%{main}%")')
+                if main[-1] == 's':
+                    main_ = main[:-1]
+                else:
+                    main_ = main+'s'
+                query.append(f'(ingredients LIKE "%{main_}%" OR dish LIKE "%{main_}%")')
+                query_.append(self.combine_queries(query, logic='OR'))
+            combined_query = [self.combine_queries(query_, logic='AND')]
+            sql = self.add_query(sql, combined_query, logic='OR')
 
         if self.is_specified(dietary):
             dietary = [dietary]
@@ -47,6 +52,10 @@ class _DB():
             recipes = None
 
         return recipes
+
+    def combine_queries(self, queries, logic='OR'):
+        query = '(' + f' {logic} '.join(queries) + ')'
+        return query
 
     def add_query(self, sql, queries, logic='OR'):
         query = '(' + f' {logic} '.join(queries) + ')'
@@ -70,8 +79,8 @@ class _DB():
 
 
 class API():
-    def __init__(self):
-        self.db = _DB()
+    def __init__(self, recipe_db_loc='../database/recipes_db.sqlite'):
+        self.db = _DB(recipe_db_loc)
         self.history = []
 
     def set_search_params(self, search_params):

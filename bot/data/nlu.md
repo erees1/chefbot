@@ -123,6 +123,8 @@
 - an hour and half
 - [beef](main)
 - an hour and a half
+- [chicken](main) and [rice](main)
+- [beef] and [noodles]
 
 ## intent:inform_dietary
 - [vegan](dietary)

@@ -36,6 +36,7 @@ pipeline:
 # https://rasa.com/docs/rasa/core/policies/
 policies:
   - name: MemoizationPolicy
+    max_history: 4
   - name: KerasPolicy
   - name: FormPolicy
   - name: MappingPolicy

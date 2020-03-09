@@ -227,7 +227,6 @@ class RecipeForm(FormAction):
             ],
             'duration': [
                 self.from_entity(entity='duration'),
-                # self.from_entity(entity='duration_text')
             ],
             'dietary': [
                 self.from_entity(entity='dietary'),
@@ -246,7 +245,15 @@ class RecipeForm(FormAction):
             domain: Dict[Text, Any],
     ):
         entities = tracker.latest_message['entities']
-        ent = {e['entity']: e['value'] for e in entities}
+        print(entities)
+        ent = {}
+        for entity in entities:
+            entity_name = entity['entity']
+            if entity_name in ent:
+                ent[entity_name].append(entity['value'])
+            else:
+                ent[entity_name] = [entity['value']]
+
         if 'dietary' in ent or 'duration' in ent and 'main' not in ent:
             value = False
         elif 'main' in ent:

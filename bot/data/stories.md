@@ -23,6 +23,9 @@
     - form: recipe_form
     - slot{"duration": 3600}
     - slot{"satisfied": false}
+    - slot{"change_main": null}
+    - slot{"change_duration": null}
+    - slot{"change_both": null}
     - form{"name": null}
     - slot{"requested_slot": null}
     - satisfied_form
@@ -58,6 +61,9 @@
     - form: recipe_form
     - slot{"duration": 1800}
     - slot{"satisfied": false}
+    - slot{"change_main": null}
+    - slot{"change_duration": null}
+    - slot{"change_both": null}
     - form{"name": null}
     - slot{"requested_slot": null}
     - satisfied_form
@@ -102,6 +108,9 @@
     - form: recipe_form
     - slot{"duration": 1800}
     - slot{"satisfied": false}
+    - slot{"change_main": null}
+    - slot{"change_duration": null}
+    - slot{"change_both": null}
     - form{"name": null}
     - slot{"requested_slot": null}
     - satisfied_form
@@ -145,6 +154,9 @@
     - form: recipe_form
     - slot{"duration": 1500}
     - slot{"satisfied": false}
+    - slot{"change_main": null}
+    - slot{"change_duration": null}
+    - slot{"change_both": null}
     - form{"name": null}
     - slot{"requested_slot": null}
     - satisfied_form
@@ -178,6 +190,9 @@
     - form: recipe_form
     - slot{"duration": 1800}
     - slot{"satisfied": false}
+    - slot{"change_main": null}
+    - slot{"change_duration": null}
+    - slot{"change_both": null}
     - form{"name": null}
     - slot{"requested_slot": null}
     - satisfied_form
@@ -212,6 +227,9 @@
     - form: recipe_form
     - slot{"duration": 1200}
     - slot{"satisfied": false}
+    - slot{"change_main": null}
+    - slot{"change_duration": null}
+    - slot{"change_both": null}
     - form{"name": null}
     - slot{"requested_slot": null}
     - satisfied_form
@@ -248,6 +266,9 @@
     - form: recipe_form
     - slot{"duration": 3600}
     - slot{"satisfied": false}
+    - slot{"change_main": null}
+    - slot{"change_duration": null}
+    - slot{"change_both": null}
     - form{"name": null}
     - slot{"requested_slot": null}
     - satisfied_form
@@ -283,6 +304,9 @@
     - form: recipe_form
     - slot{"duration": {"value": 2700, "unit": "second"}}
     - slot{"satisfied": false}
+    - slot{"change_main": null}
+    - slot{"change_duration": null}
+    - slot{"change_both": null}
     - form{"name": null}
     - slot{"requested_slot": null}
     - satisfied_form
@@ -309,9 +333,12 @@
     - slot{"duration": {"value": 2700, "unit": "second"}}
     - slot{"requested_slot": "main"}
 * form: inform{"main": "chicken"}
-    - recipe_form
+    - form: recipe_form
     - slot{"main": "chicken"}
     - slot{"satisfied": false}
+    - slot{"change_main": null}
+    - slot{"change_duration": null}
+    - slot{"change_both": null}
     - form{"name": null}
     - slot{"requested_slot": null}
     - satisfied_form
@@ -372,7 +399,7 @@
     - slot{"dietary": false}
     - slot{"requested_slot": "duration"}
 * form: inform{"duration": 30}
-    - recipe_form
+    - form: recipe_form
     - slot{"duration": {"value": 1800, "unit": "second"}}
     - slot{"satisfied": false}
     - slot{"change_main": null}
@@ -435,7 +462,7 @@
     - slot{"dietary": false}
     - slot{"requested_slot": "main"}
 * form: inform{"main": "rice"}
-    - recipe_form
+    - form: recipe_form
     - slot{"main": "rice"}
     - slot{"requested_slot": "duration"}
 * form: inform{"duration": 45}
@@ -505,11 +532,11 @@
     - slot{"dietary": false}
     - slot{"requested_slot": "main"}
 * form: inform{"main": "noodles"}
-    - recipe_form
+    - form: recipe_form
     - slot{"main": "noodles"}
     - slot{"requested_slot": "duration"}
 * form: inform{"duration": 90}
-    - recipe_form
+    - form: recipe_form
     - form{"name": "recipe_form"}
     - slot{"main": false}
     - slot{"dietary": false}
@@ -582,7 +609,7 @@
     - slot{"dietary": false}
     - slot{"requested_slot": "duration"}
 * form: inform{"duration": 90}
-    - recipe_form
+    - form: recipe_form
     - slot{"duration": {"value": 5400, "unit": "second"}}
     - slot{"satisfied": false}
     - slot{"change_main": null}
