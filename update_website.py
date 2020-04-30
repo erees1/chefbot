@@ -3,7 +3,7 @@ import os
 import requests
 
 website_path = '../../Website/edward-rees.com'
-page = 'chefbot.html'
+page = '_pages/chefbot.html'
 rasa_port = '5005'
 rasa_actions_port = '5056'
 ngrok_interface = ['http://127.0.0.1:4040/api/tunnels',
@@ -20,7 +20,7 @@ def update_website(path, page, url):
                   '&& git commit -m "Updated socket for bot"'
                   '; git push origin master')
 
-    page_path = path+'/'+page
+    page_path = os.path.join(path, page)
     with open(page_path) as f:
         lines = f.readlines()
 

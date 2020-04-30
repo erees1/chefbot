@@ -117,7 +117,7 @@
 - something [quick](duration:30 minutes)
 - about [45 minutes](duration)
 - [40 mins](duration)
-- [45 mins](duration)
+- [45 min](duration)
 - [noodles](main)
 - [40 minutes](duration)
 - an hour and half
