@@ -1,8 +1,11 @@
 import os
 # import threading
 import requests
+from dotenv import load_dotenv, find_dotenv
 
-website_path = '../../Website/edward-rees.com'
+load_dotenv(find_dotenv())
+
+website_path = os.getenv('WEBPAGE_PATH')
 page = '_pages/chefbot.html'
 rasa_port = '5005'
 rasa_actions_port = '5056'
@@ -15,6 +18,7 @@ def update_website(path, page, url):
         return f'    socketUrl: "{url}",\n'
 
     def push_to_github(website_path):
+        os.system(f'cd {website_path} && git pull origin master')
         os.system(f'cd {website_path}'
                   '&& git add .'
                   '&& git commit -m "Updated socket for bot"'
@@ -49,6 +53,7 @@ def get_ngrok_url(ngrok_interface):
         r = requests.get(ngrok_interface[1])
     r = r.json()
     public_url = r['tunnels'][0]['public_url']
+    assert 'https' in public_url
     return public_url
 
 

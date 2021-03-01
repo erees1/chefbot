@@ -1,0 +1,824 @@
+version: "2.0"
+stories:
+- story: bot challenge
+  steps:
+  - intent: bot_challenge
+  - action: utter_iamabot
+
+- story: interactive_story_4
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: action_retrieve_user
+  - action: utter_should_bot_get_recipe
+  - intent: affirm
+  - action: recipe_form
+  - active_loop: recipe_form
+  - slot_was_set:
+    - requested_slot: main
+  - slot_was_set:
+    - main: chicken
+  - slot_was_set:
+    - requested_slot: dietary
+  - slot_was_set:
+    - dietary: false
+  - slot_was_set:
+    - requested_slot: duration
+  - slot_was_set:
+    - duration: 3600
+  - slot_was_set:
+    - satisfied: false
+  - slot_was_set:
+    - change_main: null
+  - slot_was_set:
+    - change_duration: null
+  - slot_was_set:
+    - change_both: null
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: satisfied_form
+  - active_loop: satisfied_form
+  - slot_was_set:
+    - satisfied: null
+  - slot_was_set:
+    - requested_slot: satisfied
+  - slot_was_set:
+    - satisfied: true
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: utter_happy_goodbye
+  - action: action_restart
+
+- story: interactive_story_1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: action_retrieve_user
+  - action: utter_should_bot_get_recipe
+  - intent: affirm
+  - action: recipe_form
+  - active_loop: recipe_form
+  - slot_was_set:
+    - requested_slot: main
+  - slot_was_set:
+    - main: pasta
+  - slot_was_set:
+    - requested_slot: dietary
+  - slot_was_set:
+    - dietary: false
+  - slot_was_set:
+    - requested_slot: duration
+  - slot_was_set:
+    - duration: 1800
+  - slot_was_set:
+    - satisfied: false
+  - slot_was_set:
+    - change_main: null
+  - slot_was_set:
+    - change_duration: null
+  - slot_was_set:
+    - change_both: null
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: satisfied_form
+  - active_loop: satisfied_form
+  - slot_was_set:
+    - satisfied: null
+  - slot_was_set:
+    - requested_slot: satisfied
+  - slot_was_set:
+    - satisfied: true
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: utter_happy_goodbye
+  - action: action_restart
+
+- story: interactive_story_1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: action_retrieve_user
+  - action: utter_should_bot_get_recipe
+  - intent: deny
+  - action: utter_goodbye_neutral
+  - action: action_restart
+
+- story: interactive_story_1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: action_retrieve_user
+  - action: utter_should_bot_get_recipe
+  - intent: affirm
+  - action: recipe_form
+  - active_loop: recipe_form
+  - slot_was_set:
+    - requested_slot: main
+  - slot_was_set:
+    - main: rice
+  - slot_was_set:
+    - requested_slot: dietary
+  - slot_was_set:
+    - dietary: false
+  - slot_was_set:
+    - requested_slot: duration
+  - slot_was_set:
+    - duration: 1800
+  - slot_was_set:
+    - satisfied: false
+  - slot_was_set:
+    - change_main: null
+  - slot_was_set:
+    - change_duration: null
+  - slot_was_set:
+    - change_both: null
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: satisfied_form
+  - active_loop: satisfied_form
+  - slot_was_set:
+    - satisfied: null
+  - slot_was_set:
+    - requested_slot: satisfied
+  - slot_was_set:
+    - satisfied: null
+  - slot_was_set:
+    - requested_slot: satisfied
+  - slot_was_set:
+    - satisfied: null
+  - slot_was_set:
+    - requested_slot: satisfied
+  - slot_was_set:
+    - satisfied: true
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: utter_happy_goodbye
+  - action: action_restart
+
+- story: interactive_story_1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: action_retrieve_user
+  - action: utter_should_bot_get_recipe
+  - intent: affirm
+  - action: recipe_form
+  - active_loop: recipe_form
+  - slot_was_set:
+    - requested_slot: main
+  - slot_was_set:
+    - main: beef
+  - slot_was_set:
+    - requested_slot: dietary
+  - slot_was_set:
+    - dietary: false
+  - slot_was_set:
+    - requested_slot: duration
+  - slot_was_set:
+    - duration: 1500
+  - slot_was_set:
+    - satisfied: false
+  - slot_was_set:
+    - change_main: null
+  - slot_was_set:
+    - change_duration: null
+  - slot_was_set:
+    - change_both: null
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: satisfied_form
+  - active_loop: satisfied_form
+  - slot_was_set:
+    - satisfied: null
+  - slot_was_set:
+    - requested_slot: satisfied
+  - slot_was_set:
+    - satisfied: null
+  - slot_was_set:
+    - requested_slot: satisfied
+  - slot_was_set:
+    - satisfied: false
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: utter_search_again
+  - intent: affirm
+  - action: action_reset_main_duration_slots
+  - slot_was_set:
+    - main: null
+  - slot_was_set:
+    - duration: null
+  - slot_was_set:
+    - satisfied: null
+  - action: recipe_form
+  - active_loop: recipe_form
+  - slot_was_set:
+    - dietary: false
+  - slot_was_set:
+    - requested_slot: main
+  - slot_was_set:
+    - main: chicken
+  - slot_was_set:
+    - requested_slot: duration
+  - slot_was_set:
+    - duration: 1800
+  - slot_was_set:
+    - satisfied: false
+  - slot_was_set:
+    - change_main: null
+  - slot_was_set:
+    - change_duration: null
+  - slot_was_set:
+    - change_both: null
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: satisfied_form
+  - active_loop: satisfied_form
+  - slot_was_set:
+    - satisfied: null
+  - slot_was_set:
+    - requested_slot: satisfied
+  - slot_was_set:
+    - satisfied: null
+  - slot_was_set:
+    - requested_slot: satisfied
+  - slot_was_set:
+    - satisfied: true
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: utter_happy_goodbye
+
+- story: interactive_story_1
+  steps:
+  - intent: request_recipe
+    entities:
+    - duration: 20
+  - action: recipe_form
+  - active_loop: recipe_form
+  - slot_was_set:
+    - requested_slot: main
+  - slot_was_set:
+    - main: rice
+  - slot_was_set:
+    - requested_slot: dietary
+  - slot_was_set:
+    - dietary: vegeterian
+  - slot_was_set:
+    - requested_slot: duration
+  - slot_was_set:
+    - duration: 1200
+  - slot_was_set:
+    - satisfied: false
+  - slot_was_set:
+    - change_main: null
+  - slot_was_set:
+    - change_duration: null
+  - slot_was_set:
+    - change_both: null
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: satisfied_form
+  - active_loop: satisfied_form
+  - slot_was_set:
+    - satisfied: null
+  - slot_was_set:
+    - requested_slot: satisfied
+  - slot_was_set:
+    - satisfied: null
+  - slot_was_set:
+    - requested_slot: satisfied
+  - slot_was_set:
+    - satisfied: true
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: utter_happy_goodbye
+  - action: action_restart
+
+- story: interactive_story_1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: action_retrieve_user
+  - action: utter_should_bot_get_recipe
+  - intent: request_recipe
+    entities:
+    - main: rice
+  - action: recipe_form
+  - active_loop: recipe_form
+  - slot_was_set:
+    - main: rice
+  - slot_was_set:
+    - requested_slot: dietary
+  - slot_was_set:
+    - dietary: false
+  - slot_was_set:
+    - requested_slot: duration
+  - slot_was_set:
+    - duration: 3600
+  - slot_was_set:
+    - satisfied: false
+  - slot_was_set:
+    - change_main: null
+  - slot_was_set:
+    - change_duration: null
+  - slot_was_set:
+    - change_both: null
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: satisfied_form
+  - active_loop: satisfied_form
+  - slot_was_set:
+    - satisfied: null
+  - slot_was_set:
+    - requested_slot: satisfied
+  - slot_was_set:
+    - satisfied: true
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: utter_happy_goodbye
+  - action: action_restart
+
+- story: interactive_story_1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: action_retrieve_user
+  - action: utter_should_bot_get_recipe
+  - intent: affirm
+  - action: recipe_form
+  - active_loop: recipe_form
+  - slot_was_set:
+    - requested_slot: main
+  - slot_was_set:
+    - main: beef
+  - slot_was_set:
+    - requested_slot: dietary
+  - slot_was_set:
+    - dietary: false
+  - slot_was_set:
+    - requested_slot: duration
+  - slot_was_set:
+    - duration:
+        value: 2700
+        unit: second
+  - slot_was_set:
+    - satisfied: false
+  - slot_was_set:
+    - change_main: null
+  - slot_was_set:
+    - change_duration: null
+  - slot_was_set:
+    - change_both: null
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: satisfied_form
+  - active_loop: satisfied_form
+  - slot_was_set:
+    - satisfied: null
+  - slot_was_set:
+    - requested_slot: satisfied
+  - slot_was_set:
+    - satisfied: null
+  - slot_was_set:
+    - requested_slot: satisfied
+  - intent: change_choices
+  - action: action_deactivate_loop
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: utter_which_slot_to_change
+  - intent: change_choices
+    entities:
+    - change_main: ingredients
+  - action: action_reset_main_slot
+  - slot_was_set:
+    - main: null
+  - slot_was_set:
+    - satisfied: null
+  - action: recipe_form
+  - active_loop: recipe_form
+  - slot_was_set:
+    - dietary: false
+  - slot_was_set:
+    - duration:
+        value: 2700
+        unit: second
+  - slot_was_set:
+    - requested_slot: main
+  - slot_was_set:
+    - main: chicken
+  - slot_was_set:
+    - satisfied: false
+  - slot_was_set:
+    - change_main: null
+  - slot_was_set:
+    - change_duration: null
+  - slot_was_set:
+    - change_both: null
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: satisfied_form
+  - active_loop: satisfied_form
+  - slot_was_set:
+    - satisfied: null
+  - slot_was_set:
+    - requested_slot: satisfied
+  - slot_was_set:
+    - satisfied: true
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: utter_happy_goodbye
+  - action: action_restart
+- story: interactive_story_1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: action_retrieve_user
+  - action: utter_should_bot_get_recipe
+  - intent: affirm
+  - action: recipe_form
+  - active_loop: recipe_form
+  - slot_was_set:
+    - requested_slot: main
+  - slot_was_set:
+    - main: rice
+  - slot_was_set:
+    - requested_slot: dietary
+  - slot_was_set:
+    - dietary: false
+  - slot_was_set:
+    - requested_slot: duration
+  - slot_was_set:
+    - duration:
+        value: 2400
+        unit: second
+  - slot_was_set:
+    - satisfied: false
+  - slot_was_set:
+    - change_main: null
+  - slot_was_set:
+    - change_duration: null
+  - slot_was_set:
+    - change_both: null
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: satisfied_form
+  - active_loop: satisfied_form
+  - slot_was_set:
+    - satisfied: null
+  - slot_was_set:
+    - requested_slot: satisfied
+  - intent: change_choices
+  - action: action_deactivate_loop
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: utter_which_slot_to_change
+  - intent: change_choices
+    entities:
+    - change_duration: time
+  - action: action_reset_duration_slot
+  - slot_was_set:
+    - duration: null
+  - slot_was_set:
+    - satisfied: null
+  - action: recipe_form
+  - active_loop: recipe_form
+  - slot_was_set:
+    - main: rice
+  - slot_was_set:
+    - dietary: false
+  - slot_was_set:
+    - requested_slot: duration
+  - slot_was_set:
+    - duration:
+        value: 1800
+        unit: second
+  - slot_was_set:
+    - satisfied: false
+  - slot_was_set:
+    - change_main: null
+  - slot_was_set:
+    - change_duration: null
+  - slot_was_set:
+    - change_both: null
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: satisfied_form
+  - active_loop: satisfied_form
+  - slot_was_set:
+    - satisfied: null
+  - slot_was_set:
+    - requested_slot: satisfied
+  - slot_was_set:
+    - satisfied: true
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: utter_happy_goodbye
+  - action: action_restart
+- story: interactive_story_1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: action_retrieve_user
+  - action: utter_should_bot_get_recipe
+  - intent: request_recipe
+    entities:
+    - main: chicken
+  - action: recipe_form
+  - active_loop: recipe_form
+  - slot_was_set:
+    - main: chicken
+  - slot_was_set:
+    - requested_slot: dietary
+  - slot_was_set:
+    - dietary: false
+  - slot_was_set:
+    - requested_slot: duration
+  - slot_was_set:
+    - duration:
+        value: 2400
+        unit: second
+  - slot_was_set:
+    - satisfied: false
+  - slot_was_set:
+    - change_main: null
+  - slot_was_set:
+    - change_duration: null
+  - slot_was_set:
+    - change_both: null
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: satisfied_form
+  - active_loop: satisfied_form
+  - slot_was_set:
+    - satisfied: null
+  - slot_was_set:
+    - requested_slot: satisfied
+  - intent: change_choices
+  - action: action_deactivate_loop
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: utter_which_slot_to_change
+  - intent: change_choices
+    entities:
+    - change_both: both
+  - action: action_reset_main_duration_slots
+  - slot_was_set:
+    - main: null
+  - slot_was_set:
+    - duration: null
+  - slot_was_set:
+    - satisfied: null
+  - action: recipe_form
+  - active_loop: recipe_form
+  - slot_was_set:
+    - dietary: false
+  - slot_was_set:
+    - requested_slot: main
+  - slot_was_set:
+    - main: rice
+  - slot_was_set:
+    - requested_slot: duration
+  - slot_was_set:
+    - duration:
+        value: 2700
+        unit: second
+  - slot_was_set:
+    - satisfied: false
+  - slot_was_set:
+    - change_main: null
+  - slot_was_set:
+    - change_duration: null
+  - slot_was_set:
+    - change_both: null
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: satisfied_form
+  - active_loop: satisfied_form
+  - slot_was_set:
+    - satisfied: null
+  - slot_was_set:
+    - requested_slot: satisfied
+  - slot_was_set:
+    - satisfied: true
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: utter_happy_goodbye
+  - action: action_restart
+- story: interactive_story_1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: action_retrieve_user
+  - action: utter_should_bot_get_recipe
+  - intent: affirm
+  - action: recipe_form
+  - active_loop: recipe_form
+  - slot_was_set:
+    - requested_slot: main
+  - slot_was_set:
+    - main: rice
+  - slot_was_set:
+    - requested_slot: dietary
+  - slot_was_set:
+    - dietary: false
+  - slot_was_set:
+    - requested_slot: duration
+  - slot_was_set:
+    - duration:
+        value: 2400
+        unit: second
+  - slot_was_set:
+    - satisfied: false
+  - slot_was_set:
+    - change_main: null
+  - slot_was_set:
+    - change_duration: null
+  - slot_was_set:
+    - change_both: null
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: satisfied_form
+  - active_loop: satisfied_form
+  - slot_was_set:
+    - satisfied: null
+  - slot_was_set:
+    - requested_slot: satisfied
+  - intent: change_choices
+  - action: action_deactivate_loop
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: utter_which_slot_to_change
+  - intent: change_choices
+    entities:
+    - change_both: both
+  - action: action_reset_main_duration_slots
+  - slot_was_set:
+    - main: null
+  - slot_was_set:
+    - duration: null
+  - slot_was_set:
+    - satisfied: null
+  - action: recipe_form
+  - active_loop: recipe_form
+  - slot_was_set:
+    - dietary: false
+  - slot_was_set:
+    - requested_slot: main
+  - slot_was_set:
+    - main: noodles
+  - slot_was_set:
+    - requested_slot: duration
+  - active_loop: recipe_form
+  - slot_was_set:
+    - main: false
+  - slot_was_set:
+    - dietary: false
+  - slot_was_set:
+    - duration:
+        value: 5400
+        unit: second
+  - slot_was_set:
+    - satisfied: false
+  - slot_was_set:
+    - change_main: null
+  - slot_was_set:
+    - change_duration: null
+  - slot_was_set:
+    - change_both: null
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: satisfied_form
+  - active_loop: satisfied_form
+  - slot_was_set:
+    - satisfied: null
+  - slot_was_set:
+    - requested_slot: satisfied
+  - slot_was_set:
+    - satisfied: true
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: utter_happy_goodbye
+  - action: action_restart
+- story: interactive_story_1
+  steps:
+  - intent: greet
+  - action: utter_greet
+  - action: action_retrieve_user
+  - action: utter_should_bot_get_recipe
+  - intent: affirm
+  - action: recipe_form
+  - active_loop: recipe_form
+  - slot_was_set:
+    - requested_slot: main
+  - slot_was_set:
+    - main: beef
+  - slot_was_set:
+    - requested_slot: dietary
+  - slot_was_set:
+    - main: chicken
+  - slot_was_set:
+    - requested_slot: dietary
+  - slot_was_set:
+    - dietary: false
+  - slot_was_set:
+    - requested_slot: duration
+  - slot_was_set:
+    - duration:
+        value: 3600
+        unit: second
+  - slot_was_set:
+    - satisfied: false
+  - slot_was_set:
+    - change_main: null
+  - slot_was_set:
+    - change_duration: null
+  - slot_was_set:
+    - change_both: null
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: satisfied_form
+  - active_loop: satisfied_form
+  - slot_was_set:
+    - satisfied: null
+  - slot_was_set:
+    - requested_slot: satisfied
+  - intent: change_choices
+  - action: action_deactivate_loop
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: utter_which_slot_to_change
+  - intent: change_choices
+    entities:
+    - change_duration: time
+  - action: action_reset_duration_slot
+  - slot_was_set:
+    - duration: null
+  - slot_was_set:
+    - satisfied: null
+  - action: recipe_form
+  - active_loop: recipe_form
+  - slot_was_set:
+    - main: chicken
+  - slot_was_set:
+    - dietary: false
+  - slot_was_set:
+    - requested_slot: duration
+  - slot_was_set:
+    - duration:
+        value: 5400
+        unit: second
+  - slot_was_set:
+    - satisfied: false
+  - slot_was_set:
+    - change_main: null
+  - slot_was_set:
+    - change_duration: null
+  - slot_was_set:
+    - change_both: null
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: satisfied_form
+  - active_loop: satisfied_form
+  - slot_was_set:
+    - satisfied: null
+  - slot_was_set:
+    - requested_slot: satisfied
+  - slot_was_set:
+    - satisfied: true
+  - active_loop: null
+  - slot_was_set:
+    - requested_slot: null
+  - action: utter_happy_goodbye
+  - action: action_restart

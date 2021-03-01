@@ -1,4 +1,4 @@
-.PHONY: clean data lint requirements serve
+.PHONY: clean data lint requirements serve duckling ngrok
 
 #################################################################################
 # GLOBALS                                                                       #
@@ -8,14 +8,11 @@ PROJECT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 PROFILE = default
 PROJECT_NAME = ChefBot
 PYTHON_INTERPRETER = python3
+SHELL=/bin/bash
 
 #################################################################################
 # COMMANDS                                                                      #
 #################################################################################
-
-## Active environment
-env:
-	conda activate rasa_env
 
 ## Star ngrok server
 ngrok:
@@ -26,12 +23,16 @@ website: ngrok
 	sleep 3	
 	$(PYTHON_INTERPRETER) update_website.py
 
+## Start duclking server
+duckling:
+	./duckling/duckling-example-exe -p 8000 &
+
 ## Start rasa core and action servers
-serve: website
+serve: duckling website
 	cd bot ; rasa run actions --port 5056 & rasa run --enable-api --cors '*' --debug
 
 ## Run locally in terminal
-local:
+local: duckling
 	cd bot ; rasa run actions --port 5056 & rasa shell --debug
 
 ## Delete all compiled Python files
