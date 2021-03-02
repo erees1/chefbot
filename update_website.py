@@ -15,7 +15,7 @@ ngrok_interface = ['http://127.0.0.1:4040/api/tunnels',
 
 def update_website(path, page, url):
     def change_socketurl(url):
-        return f'    socketUrl: "{url}",\n'
+        return f'    socketUrl: "{url}/socketio",\n'
 
     def push_to_github(website_path):
         os.system(f'cd {website_path} && git pull origin master')

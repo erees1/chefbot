@@ -6,44 +6,25 @@
 
 PROJECT_DIR := $(shell dirname $(realpath $(lastword $(MAKEFILE_LIST))))
 PROFILE = default
-PROJECT_NAME = ChefBot
+PROJECT_NAME = chefBot
 PYTHON_INTERPRETER = python3
 SHELL=/bin/bash
+include .env
+export
 
 #################################################################################
 # COMMANDS                                                                      #
 #################################################################################
 
-## Star ngrok server
-ngrok:
-	ngrok http 5005 > /dev/null &
-
-## Update website with ngrok address
-website: ngrok
-	sleep 3	
-	$(PYTHON_INTERPRETER) update_website.py
-
-## Start duclking server
-duckling:
-	./duckling/duckling-example-exe -p 8000 &
-
-## Start rasa core and action servers
-serve: duckling website
-	cd bot ; rasa run actions --port 5056 & rasa run --enable-api --cors '*' --debug
-
-## Run locally in terminal
-local: duckling
-	cd bot ; rasa run actions --port 5056 & rasa shell --debug
+## Train Rasa bot
+train:
+	rasa train --config $(BOT_CONFIG) --domain $(BOT_DOMAIN) --out $(BOT_MODELS) --data $(BOT_DATA)
 
 ## Delete all compiled Python files
 clean:
 	find . -type f -name "*.py[co]" -delete
 	find . -type d -name "__pycache__" -delete
 	# find . -type d -name ".ipynb_checkpoints" -delete
-
-## Lint using flake8
-lint:
-	flake8 src
 
 #################################################################################
 # PROJECT RULES                                                                 #
