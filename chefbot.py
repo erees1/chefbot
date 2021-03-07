@@ -32,33 +32,32 @@ log_fhs = []
 
 def main():
     parser = argparse.ArgumentParser()
-    parser.add_argument("--local", action="store_true", help="Run in local shell")
-    parser.add_argument("--nlu", action="store_true", help="Run nlu shell only")
+    parser.add_argument(
+        "mode", choices=["full", "local", "shell", "nlu"], default="full", help="Mode to run in"
+    )
     args = parser.parse_args()
 
     # Clear old logs
     shutil.rmtree(LOG_FILE)
     os.mkdir(LOG_FILE)
 
-    # If nlu run locally
-    if args.nlu:
-        args.local = True
-
     print("Running chefbot processes")
 
-    if not args.local:
+    if args.mode == "full":
         start_ngrok()
         time.sleep(2)
-        subprocess.run(
-            ["python3", "update_website.py"], stderr=subprocess.DEVNULL
-        )
+        up_website_args = []
+    elif args.mode == "local":
+        up_website_args = ["--local"]
+
+    subprocess.run(["python3", "update_website.py"] + up_website_args, stderr=subprocess.DEVNULL)
 
     start_duckling()
-    if args.nlu:
+    if args.mode == "nlu":
         start_nlu()
     else:
         start_action_server()
-        start_bot(args.local)
+        start_bot(args.mode)
 
     while True:
         try:
@@ -97,21 +96,21 @@ def start_action_server():
     start_p("rasa_actions", ["rasa", "run", "actions", "--actions", "bot.src.actions"])
 
 
-def start_bot(local):
-    args = [
+def start_bot(mode):
+    bot_args = [
         "--model",
         BOT_MODELS,
         "--endpoints",
         ENDPOINT_PATH,
     ]
 
-    if local:
-        start_p("rasa", ["rasa", "shell"] + args, "shell")
+    if mode == 'shell':
+        start_p("rasa", ["rasa", "shell"] + bot_args, "shell")
     else:
         start_p(
             "rasa",
-            ["rasa", "run", "--enable-api", "--cors", WEB_ADR, "--credentials", BOT_CREDENTIALS]
-            + args,
+            ["rasa", "run", "--enable-api", "--cors", "*", "--credentials", BOT_CREDENTIALS, "--debug"]
+            + bot_args,
         )
 
 
