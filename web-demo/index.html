@@ -1,0 +1,41 @@
+<head>
+  <link rel="stylesheet" href="assets/style.css">
+  <link href="css/GP.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+  integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+</head>
+
+<body>
+  <div>
+    <div id='main'>
+      <div class="container-lg">
+        <div class='page-content'>
+          <div class="page-title">
+            <h1>ChefBot</h1>
+          </div>
+          <div class="center-image-container"><img class="img-page-icon" src="assets/chefbot-icon.png" />
+          </div>
+          <p>
+            This page designed to give a local preview of chefbot. For more details see my <a href="http://edward-rees.com/chefbot">website</a>. Click on the blue chat icon 
+            in the bottom right hand corner to use the bot. If that hasn't appeared you will need to run <code>python chefbot.py local</code>. See the Readme for more installation
+            details.
+          </p>
+        </div>
+        <div id="webchat">
+          <script src="./assets/webchat.js"></script>
+          <script>
+            WebChat.default.init({
+              selector: "#webchat",
+              initPayload: "/greet",
+              customData: { language: "en" }, // arbitrary custom data. Stay minimal as this will be added to the socket
+              socketUrl: "http://localhost:5005",
+              title: "ChefBot",
+              subtitle: "",
+              hideWhenNotConnected: true,
+            });
+          </script>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>

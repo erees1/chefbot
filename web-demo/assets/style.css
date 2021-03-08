@@ -1,0 +1,72 @@
+#webchat .widget-container {
+  z-index: 1000001;
+}
+
+#webchat .image {
+  width: 100%;
+  height: auto;
+  margin: auto;
+}
+
+#webchat .image-details {
+  width: 100%;
+  padding-top: 60%;
+  overflow: hidden;
+  position: relative;
+  border-radius: 15px;
+}
+
+#webchat .image-details .image-frame {
+  width: 100%;
+  height: auto;
+  margin: auto;
+  position: absolute;
+  top: -100%;
+  right: -100%;
+  bottom: -100%;
+  left: -100%;
+}
+
+#webchat .response,
+#webchat .client {
+  line-height: 1em;
+  vertical-align: middle;
+  padding-top: 8pt;
+  padding-bottom: 8pt;
+}
+
+#webchat .message-text,
+#webchat p,
+#webchat form.sender {
+  line-height: 1.37em;
+  font-size: 12pt;
+  font-family: "Open Sans", sans-serif;
+}
+#webchat form.sender {
+  margin-bottom: 0;
+  margin-top: 1em;
+}
+#webchat button.send {
+  margin-left: 2px;
+}
+div.container-lg {
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.center-image-container {
+  text-align: center;
+  margin-left: auto;
+  margin-right: auto;
+}
+.center-image-container>img{
+	width: 25%;
+	margin-bottom: 20px;
+}
+.page-title {
+	text-align: center;
+}
+#main {
+	margin-top: 20px;
+	margin-bottom: 20px;
+}
